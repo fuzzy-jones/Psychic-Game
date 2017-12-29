@@ -6,7 +6,7 @@ var wins = 0;
 var losses = 0;
 var guessesLeft = 9;
 var lettersGuessed = [];
-
+// computer picks a random letter
 var computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];
 
 
@@ -15,17 +15,21 @@ document.onkeyup = function(event) {
     
     // user guess
     var userGuess = (event.key).toLowerCase();
-    // computer random word
-    var computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];
+   
     // pushing the user selected letter to the letters guessed
     lettersGuessed.push(userGuess);
+
+    // make only alphabet letters playable
+    // if (userGuess !== letterOptions) {
+    // alert("Not a alphabet letter... I'm only psychic with those... Try harder")
+    //     }
 
     // if else statements
     if (userGuess === computerGuess) {
         wins++;
-        guessesLeft = 9;
+        guessesLeft = 10;
         lettersGuessed = [];
-        var computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];        
+        computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];        
         }  
     if (userGuess !== computerGuess){
         guessesLeft--;   
@@ -34,9 +38,10 @@ document.onkeyup = function(event) {
         losses++;
         guessesLeft = 9;
         lettersGuessed = [];
-        var computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];        
+        computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];        
     }
-    
+
+    // display game results to page
     var html = 
         "<h1>The Psychic Game</h1>" +
         "<p>Guess what letter I'm thinking of</p>" +
@@ -47,7 +52,8 @@ document.onkeyup = function(event) {
 
     document.querySelector("#game").innerHTML = html;
 
-    // console.log(userGuess);
-    // console.log(computerGuess);
+    // log choices
+    console.log("Your Guess: " + userGuess);
+    console.log("Computer Guess: " + computerGuess);
 
 };
