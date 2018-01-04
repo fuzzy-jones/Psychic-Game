@@ -16,24 +16,32 @@ document.onkeyup = function(event) {
     // user guess
     var userGuess = (event.key).toLowerCase();
    
-    // pushing the user selected letter to the letters guessed
-    lettersGuessed.push(userGuess);
-
-    // make only alphabet letters playable
-    // if (userGuess !== letterOptions) {
-    // alert("Not a alphabet letter... I'm only psychic with those... Try harder")
-    //     }
-
     // if else statements
+
+    // make only alphabet letters from array able to be selected
+    if (letterOptions.indexOf(userGuess) > -1) {
+        // pushing the user selected letter to the letters guessed
+        lettersGuessed.push(userGuess);
+    }
+    else {
+        // don't lose a guess and get an alert of invalid key guess
+        guessesLeft++;
+        alert("Invalid Key... I'm only psychic with alphabet letters!")
+    }
+
+    // if user guess is same a computer guess, then user wins and game resets
     if (userGuess === computerGuess) {
         wins++;
         guessesLeft = 10;
         lettersGuessed = [];
-        computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];        
+        computerGuess = letterOptions[Math.floor(Math.random() * letterOptions.length)];       
         }  
+    // if user guess is not computer guess, then user losses a guess
     if (userGuess !== computerGuess){
         guessesLeft--;   
     }
+
+    // if user runs out of guess, then they lose and game resets
     if (guessesLeft === 0) {
         losses++;
         guessesLeft = 9;
@@ -50,7 +58,7 @@ document.onkeyup = function(event) {
         "<p>Guesses Left: " + guessesLeft + "</p>" +
         "<p>Guesses so far: " + lettersGuessed + "</p>";
 
-    document.querySelector("#game").innerHTML = html;
+    document.getElementById("game").innerHTML = html;
 
     // log choices
     console.log("Your Guess: " + userGuess);
